@@ -13,7 +13,7 @@ window.onload = function() {
         document.getElementById('output2').innerHTML = '<pre>' + ds + '</pre>';
         document.getElementById('count1').innerText = '字数: ' + text1.length;
         document.getElementById('count2').innerText = '字数: ' + text2.length;
-        var similarity = dmp.diff_levenshtein(diff) / ((text1.length + text2.length) / 2);
+        var similarity = dmp.diff_levenshtein(diff) / Math.max(text1.length, text2.length); // 修改这一行
         document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
     }
 
