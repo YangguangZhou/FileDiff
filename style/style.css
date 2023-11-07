@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -6,7 +7,7 @@ body, html {
     justify-content: center;
     align-items: center;
     background-image: url('../assets/background.jpg');
-    background-size: cover; /* 添加这一行 */
+    background-size: cover;
     overflow: hidden;
 }
 
@@ -15,18 +16,19 @@ body, html {
     font-size: 2em;
     color: #333;
     margin-top: 20px;
-    margin-bottom: 20px; /* 添加或修改这一行 */
+    margin-bottom: 20px;
 }
 
 .container {
     display: flex;
-    justify-content: space-between; /* 修改这一行 */
+    justify-content: space-between;
     height: 100%;
     padding: 20px;
 }
 
-.text-input, .text-output {
-    width: 100%; /* 修改这一行 */
+.text-input,
+.text-output {
+    width: 100%;
     height: 80vh;
     margin: 10px;
     padding: 15px;
@@ -34,7 +36,7 @@ body, html {
     border: 2px solid #E0E0E0;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     overflow: auto;
     resize: none;
@@ -48,14 +50,18 @@ body, html {
 
 .text-output {
     /* 与.text-input相同的样式，除了以下几点 */
-    overflow: auto; /* 允许滚动 */
-    white-space: pre-wrap; /* 保留空格和换行 */
-    word-wrap: break-word; /* 自动换行 */
+    overflow: auto;
+    /* 允许滚动 */
+    white-space: pre-wrap;
+    /* 保留空格和换行 */
+    word-wrap: break-word;
+    /* 自动换行 */
 }
 
 /* 修复换行符问题 */
 .text-output pre {
-    white-space: pre-wrap; /* 保留空格和换行，同时允许正常的自动换行 */
+    white-space: pre-wrap;
+    /* 保留空格和换行，同时允许正常的自动换行 */
 }
 
 /* 高亮样式 */
@@ -66,6 +72,7 @@ ins {
 
 del {
     background-color: #fbcfc6;
-    text-decoration: line-through; /* 修改为line-through提供删除线效果 */
-    border-bottom: 1px solid #ff0000; /* 添加下划线 */
+    text-decoration: line-through;
+    /* 修改为line-through提供删除线效果 */
+    border-bottom: 1px solid #ff0000;
 }

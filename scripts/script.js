@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     const input1 = document.getElementById('input1');
     const input2 = document.getElementById('input2');
     const dmp = new diff_match_patch();
