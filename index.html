@@ -8,103 +8,81 @@
     <link rel="icon" href="https://jerryz.com.cn/favicon.png">
     <script src="scripts/diff_match_patch.js"></script>
     <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #FAFAFA;
-            justify-content: center;
-            align-items: center;
-            background-image: url('./assets/background.jpg');
-            background-size: cover;
-            /* overflow: hidden; */
-        }
+        body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA;
+    background-image: url('./assets/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
 
-        .title {
-            text-align: center;
-            font-size: 2em;
-            color: #333;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+.title {
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
 
-        .container {
-            display: flex;
-            justify-content: space-around;
-            height: 100%;
-            padding: 0 20px;
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px); /* 减去标题高度 */
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-        .column {
-            display: block;
-            width: 30%;
-            margin-right: 60px;
-        }
+.column {
+    flex: 1;
+    margin-bottom: 10px;
+    width: 100%;
+}
 
-        .text-input,
-        .text-output {
-            width: 100%;
-            height: 80vh;
-            margin: 10px;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #E0E0E0;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            overflow: auto;
-            resize: none;
-        }
+.text-input,
+.text-output {
+    width: 100%;
+    height: 200px;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    resize: none;
+    box-sizing: border-box;
+}
 
-        .count {
-            font-size: 14px;
-            color: #333;
-            margin: 0 10px;
-        }
+.count {
+    font-size: 12px;
+    color: #333;
+    margin: 5px 0;
+}
 
-        .text-output {
-            overflow: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
+.text-output {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
 
-        .text-output pre {
-            white-space: pre-wrap;
-        }
+.text-output pre {
+    white-space: pre-wrap;
+}
 
-        ins {
-            background-color: #c6fbc3;
-            text-decoration: none;
-        }
+ins {
+    background-color: #c6fbc3;
+    text-decoration: none;
+}
 
-        del {
-            background-color: #fbcfc6;
-            text-decoration: line-through;
-            border-bottom: 1px solid #ff0000;
-        }
+del {
+    background-color: #fbcfc6;
+    text-decoration: line-through;
+    border-bottom: 1px solid #ff0000;
+}
 
-        /* 媒体查询适配移动设备 */
-        @media screen and (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-                padding: 0;
-                margin-top: 400px;
-            }
-
-            .column {
-                width: 80%;
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-
-            .text-input,
-            .text-output {
-                height: 50vh;
-            }
-        }
 .insert {
     background-color: #c6fbc3;
 }
@@ -120,6 +98,33 @@
     text-align: right;
     margin-right: 10px;
     color: #888;
+}
+
+/* 移动设备适配 */
+@media screen and (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .column {
+        width: 30%;
+    }
+
+    .text-input,
+    .text-output {
+        height: calc(100vh - 150px);
+    }
+
+    .title {
+        font-size: 2em;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .count {
+        font-size: 14px;
+    }
 }
     </style>
 </head>
