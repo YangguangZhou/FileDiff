@@ -105,43 +105,74 @@
                 height: 50vh;
             }
         }
+.insert {
+    background-color: #c6fbc3;
+}
+
+.delete {
+    background-color: #fbcfc6;
+    text-decoration: line-through;
+}
+
+.line-number {
+    display: inline-block;
+    width: 30px;
+    text-align: right;
+    margin-right: 10px;
+    color: #888;
+}
     </style>
 </head>
 
 <body>
     <script>
         window.onload = function () {
-            const input1 = document.getElementById('input1');
-            const input2 = document.getElementById('input2');
-            const dmp = new diff_match_patch();
+    const input1 = document.getElementById('input1');
+    const input2 = document.getElementById('input2');
+    const dmp = new diff_match_patch();
 
-            function compareTexts() {
-                var text1 = input1.value;
-                var text2 = input2.value;
+    function compareTexts() {
+        var text1 = input1.value.split('\n');
+        var text2 = input2.value.split('\n');
 
-                // 将文本按段落分隔成数组
-                var paragraphs1 = text1.split(/\n{2,}/);
-                var paragraphs2 = text2.split(/\n{2,}/);
+        var diff = dmp.diff_main(text1.join('\n'), text2.join('\n'));
+        dmp.diff_cleanupSemantic(diff);
 
-                // 对段落数组进行差异比较
-                var diff = dmp.diff_main(paragraphs1.join('\n'), paragraphs2.join('\n'));
-                dmp.diff_cleanupSemantic(diff);
-
-                // 将差异结果转换回文本
-                var ds = dmp.diff_prettyHtml(diff);
-                ds = ds.replace(/&para;/g, '');
-                document.getElementById('output2').innerHTML = '<pre>' + ds + '</pre>';
-
-                document.getElementById('count1').innerText = '字数: ' + text1.length;
-                document.getElementById('count2').innerText = '字数: ' + text2.length;
-
-                var similarity = dmp.diff_levenshtein(diff) / Math.max(paragraphs1.length, paragraphs2.length);
-                document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
+        var html = [];
+        var lineNum = 1;
+        for (var x = 0; x < diff.length; x++) {
+            var op = diff[x][0];    // Operation (insert, delete, equal)
+            var data = diff[x][1];  // Text of change.
+            var text = data.split('\n');
+            for (var y = 0; y < text.length; y++) {
+                if (text[y].length > 0) {
+                    switch (op) {
+                        case DIFF_INSERT:
+                            html.push('<p class="insert"><span class="line-number">+' + lineNum + '</span>' + text[y] + '</p>');
+                            lineNum++;
+                            break;
+                        case DIFF_DELETE:
+                            html.push('<p class="delete"><span class="line-number">-' + lineNum + '</span>' + text[y] + '</p>');
+                            break;
+                        case DIFF_EQUAL:
+                            html.push('<p><span class="line-number">' + lineNum + '</span>' + text[y] + '</p>');
+                            lineNum++;
+                            break;
+                    }
+                }
             }
-
-            input1.addEventListener('input', compareTexts);
-            input2.addEventListener('input', compareTexts);
         }
+
+        document.getElementById('output2').innerHTML = html.join('');
+        document.getElementById('count1').innerText = '字数: ' + input1.value.length;
+        document.getElementById('count2').innerText = '字数: ' + input2.value.length;
+        var similarity = dmp.diff_levenshtein(diff) / Math.max(input1.value.length, input2.value.length);
+        document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
+    }
+
+    input1.addEventListener('input', compareTexts);
+    input2.addEventListener('input', compareTexts);
+}
     </script>
     <h1 class="title">文本比对工具</h1>
     <div class="container">
