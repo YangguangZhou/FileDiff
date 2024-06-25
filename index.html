@@ -7,202 +7,224 @@
     <title>文本比对工具</title>
     <link rel="icon" href="https://jerryz.com.cn/favicon.png">
     <script src="scripts/diff_match_patch.js"></script>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857"
+            crossorigin="anonymous"></script>
     <style>
         body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #FAFAFA;
-    background-image: url('./assets/background.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-}
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #FAFAFA;
+            background-image: url('./assets/background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
 
-.title {
-    text-align: center;
-    font-size: 1.5em;
-    color: #333;
-    padding: 10px 0;
-    background-color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-}
+        .title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #333;
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
+        .container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
 
-.column {
-    width: 100%;
-    margin-bottom: 10px;
-}
+        .column {
+            width: 100%;
+            margin-bottom: 10px;
+        }
 
-.text-input,
-.text-output {
-    width: 100%;
-    height: 150px;
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #E0E0E0;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: auto;
-    resize: none;
-    box-sizing: border-box;
-}
+        .text-input,
+        .text-output {
+            width: 100%;
+            height: 150px;
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            resize: none;
+            box-sizing: border-box;
+        }
 
-.count {
-    font-size: 12px;
-    color: #333;
-    margin: 5px 0;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 2px 5px;
-    border-radius: 3px;
-}
+        .count {
+            font-size: 12px;
+            color: #333;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
 
-.text-output {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
+        .text-output {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
 
-.text-output p {
-    margin: 0;
-    line-height: 1.4;
-}
+        .text-output p {
+            margin: 0;
+            line-height: 1.4;
+        }
 
-ins {
-    background-color: #c6fbc3;
-    text-decoration: none;
-}
+        ins {
+            background-color: #c6fbc3;
+            text-decoration: none;
+        }
 
-del {
-    background-color: #fbcfc6;
-    text-decoration: line-through;
-    border-bottom: 1px solid #ff0000;
-}
+        del {
+            background-color: #fbcfc6;
+            text-decoration: line-through;
+            border-bottom: 1px solid #ff0000;
+        }
 
-.insert {
-    background-color: #c6fbc3;
-}
+        .insert {
+            background-color: #c6fbc3;
+        }
 
-.delete {
-    background-color: #fbcfc6;
-    text-decoration: line-through;
-}
+        .delete {
+            background-color: #fbcfc6;
+            text-decoration: line-through;
+        }
 
-.line-number {
-    display: inline-block;
-    width: 30px;
-    text-align: right;
-    margin-right: 10px;
-    color: #888;
-}
+        .line-number {
+            display: inline-block;
+            width: 30px;
+            text-align: right;
+            margin-right: 10px;
+            color: #888;
+        }
 
-/* 移动设备适配 */
-@media screen and (max-width: 767px) {
-    .title {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-    }
+        /* 移动设备适配 */
+        @media screen and (max-width: 767px) {
+            .title {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
 
-    .text-input,
-    .text-output {
-        height: 120px;
-    }
+            .text-input,
+            .text-output {
+                height: 120px;
+            }
 
-    .container {
-        padding-top: 5px;
-    }
-}
+            .container {
+                padding-top: 5px;
+            }
+        }
 
-/* 桌面设备适配 */
-@media screen and (min-width: 768px) {
-    .container {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 20px;
-    }
+        /* 桌面设备适配 */
+        @media screen and (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 20px;
+            }
 
-    .column {
-        width: 32%;
-    }
+            .column {
+                width: 32%;
+            }
 
-    .text-input,
-    .text-output {
-        height: calc(100vh - 180px);
-    }
+            .text-input,
+            .text-output {
+                height: calc(100vh - 180px);
+            }
 
-    .title {
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
+            .title {
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
 
-    .count {
-        font-size: 14px;
-    }
-}
+            .count {
+                font-size: 14px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            color: #333;
+        }
+
+        footer a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
     <script>
         window.onload = function () {
-    const input1 = document.getElementById('input1');
-    const input2 = document.getElementById('input2');
-    const dmp = new diff_match_patch();
+            const input1 = document.getElementById('input1');
+            const input2 = document.getElementById('input2');
+            const dmp = new diff_match_patch();
 
-    function compareTexts() {
-        var text1 = input1.value.split('\n');
-        var text2 = input2.value.split('\n');
+            function compareTexts() {
+                var text1 = input1.value.split('\n');
+                var text2 = input2.value.split('\n');
 
-        var diff = dmp.diff_main(text1.join('\n'), text2.join('\n'));
-        dmp.diff_cleanupSemantic(diff);
+                var diff = dmp.diff_main(text1.join('\n'), text2.join('\n'));
+                dmp.diff_cleanupSemantic(diff);
 
-        var html = [];
-        var lineNum = 1;
-        for (var x = 0; x < diff.length; x++) {
-            var op = diff[x][0];    // Operation (insert, delete, equal)
-            var data = diff[x][1];  // Text of change.
-            var text = data.split('\n');
-            for (var y = 0; y < text.length; y++) {
-                if (text[y].length > 0) {
-                    switch (op) {
-                        case DIFF_INSERT:
-                            html.push('<p class="insert"><span class="line-number">+' + lineNum + '</span>' + text[y] + '</p>');
-                            lineNum++;
-                            break;
-                        case DIFF_DELETE:
-                            html.push('<p class="delete"><span class="line-number">-' + lineNum + '</span>' + text[y] + '</p>');
-                            break;
-                        case DIFF_EQUAL:
-                            html.push('<p><span class="line-number">' + lineNum + '</span>' + text[y] + '</p>');
-                            lineNum++;
-                            break;
+                var html = [];
+                var lineNum = 1;
+                for (var x = 0; x < diff.length; x++) {
+                    var op = diff[x][0];    // Operation (insert, delete, equal)
+                    var data = diff[x][1];  // Text of change.
+                    var text = data.split('\n');
+                    for (var y = 0; y < text.length; y++) {
+                        if (text[y].length > 0) {
+                            switch (op) {
+                                case DIFF_INSERT:
+                                    html.push('<p class="insert"><span class="line-number">+' + lineNum + '</span>' + text[y] + '</p>');
+                                    lineNum++;
+                                    break;
+                                case DIFF_DELETE:
+                                    html.push('<p class="delete"><span class="line-number">-' + lineNum + '</span>' + text[y] + '</p>');
+                                    break;
+                                case DIFF_EQUAL:
+                                    html.push('<p><span class="line-number">' + lineNum + '</span>' + text[y] + '</p>');
+                                    lineNum++;
+                                    break;
+                            }
+                        }
                     }
                 }
+
+                document.getElementById('output2').innerHTML = html.join('');
+                document.getElementById('count1').innerText = '字数: ' + input1.value.length;
+                document.getElementById('count2').innerText = '字数: ' + input2.value.length;
+                var similarity = dmp.diff_levenshtein(diff) / Math.max(input1.value.length, input2.value.length);
+                document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
             }
+
+            input1.addEventListener('input', compareTexts);
+            input2.addEventListener('input', compareTexts);
+
+            // 初始化显示字数和相似度为0
+            document.getElementById('count1').innerText = '字数: 0';
+            document.getElementById('count2').innerText = '字数: 0';
+            document.getElementById('similarity').innerText = '相似度: 0.00%';
         }
-
-        document.getElementById('output2').innerHTML = html.join('');
-        document.getElementById('count1').innerText = '字数: ' + input1.value.length;
-        document.getElementById('count2').innerText = '字数: ' + input2.value.length;
-        var similarity = dmp.diff_levenshtein(diff) / Math.max(input1.value.length, input2.value.length);
-        document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
-    }
-
-    input1.addEventListener('input', compareTexts);
-    input2.addEventListener('input', compareTexts);
-}
     </script>
     <h1 class="title">文本比对工具</h1>
     <div class="container">
@@ -219,6 +241,9 @@ del {
             <p id="similarity" class="count"></p>
         </div>
     </div>
+    <footer>
+        Copyright © 2023-2024 <a href="https://jerryz.com.cn" target="_blank">Jerry Zhou</a>
+    </footer>
 </body>
 
 </html>
