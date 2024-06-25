@@ -163,6 +163,7 @@
         footer a {
             color: #333;
             text-decoration: none;
+            font-weight: bold;
         }
 
         footer a:hover {
@@ -187,6 +188,8 @@
 
                 var html = [];
                 var lineNum = 1;
+                var insertCount = 0;
+                var deleteCount = 0;
                 for (var x = 0; x < diff.length; x++) {
                     var op = diff[x][0];    // Operation (insert, delete, equal)
                     var data = diff[x][1];  // Text of change.
@@ -195,11 +198,12 @@
                         if (text[y].length > 0) {
                             switch (op) {
                                 case DIFF_INSERT:
-                                    html.push('<p class="insert"><span class="line-number">+' + lineNum + '</span>' + text[y] + '</p>');
-                                    lineNum++;
+                                    html.push('<p class="insert"><span class="line-number">+' + (lineNum + insertCount) + '</span>' + text[y] + '</p>');
+                                    insertCount++;
                                     break;
                                 case DIFF_DELETE:
-                                    html.push('<p class="delete"><span class="line-number">-' + lineNum + '</span>' + text[y] + '</p>');
+                                    html.push('<p class="delete"><span class="line-number">-' + (lineNum + deleteCount) + '</span>' + text[y] + '</p>');
+                                    deleteCount++;
                                     break;
                                 case DIFF_EQUAL:
                                     html.push('<p><span class="line-number">' + lineNum + '</span>' + text[y] + '</p>');
