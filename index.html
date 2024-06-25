@@ -114,19 +114,31 @@
             const input1 = document.getElementById('input1');
             const input2 = document.getElementById('input2');
             const dmp = new diff_match_patch();
+
             function compareTexts() {
                 var text1 = input1.value;
                 var text2 = input2.value;
-                var diff = dmp.diff_main(text1, text2);
+
+                // 将文本按段落分隔成数组
+                var paragraphs1 = text1.split(/\n{2,}/);
+                var paragraphs2 = text2.split(/\n{2,}/);
+
+                // 对段落数组进行差异比较
+                var diff = dmp.diff_main(paragraphs1.join('\n'), paragraphs2.join('\n'));
                 dmp.diff_cleanupSemantic(diff);
+
+                // 将差异结果转换回文本
                 var ds = dmp.diff_prettyHtml(diff);
-                ds = ds.replace(/&para;/g, ''); // 添加这一行
+                ds = ds.replace(/&para;/g, '');
                 document.getElementById('output2').innerHTML = '<pre>' + ds + '</pre>';
+
                 document.getElementById('count1').innerText = '字数: ' + text1.length;
                 document.getElementById('count2').innerText = '字数: ' + text2.length;
-                var similarity = dmp.diff_levenshtein(diff) / Math.max(text1.length, text2.length); // 修改这一行
+
+                var similarity = dmp.diff_levenshtein(diff) / Math.max(paragraphs1.length, paragraphs2.length);
                 document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
             }
+
             input1.addEventListener('input', compareTexts);
             input2.addEventListener('input', compareTexts);
         }
