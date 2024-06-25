@@ -16,6 +16,8 @@
     background-image: url('./assets/background.jpg');
     background-size: cover;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
@@ -30,9 +32,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 50px); /* 减去标题高度 */
+    flex: 1;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .column {
@@ -44,7 +47,7 @@
 .text-input,
 .text-output {
     width: 100%;
-    height: 200px;
+    height: 150px;
     margin: 5px 0;
     padding: 10px;
     font-size: 14px;
@@ -68,8 +71,9 @@
     word-wrap: break-word;
 }
 
-.text-output pre {
-    white-space: pre-wrap;
+.text-output p {
+    margin: 0;
+    line-height: 1.4;
 }
 
 ins {
@@ -118,8 +122,8 @@ del {
 
     .title {
         font-size: 2em;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .count {
