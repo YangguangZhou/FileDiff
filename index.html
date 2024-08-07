@@ -174,61 +174,63 @@
 
 <body>
     <script>
-        window.onload = function () {
-            const input1 = document.getElementById('input1');
-            const input2 = document.getElementById('input2');
-            const dmp = new diff_match_patch();
+window.onload = function () {
+    const input1 = document.getElementById('input1');
+    const input2 = document.getElementById('input2');
+    const dmp = new diff_match_patch();
 
-            function compareTexts() {
-                var text1 = input1.value.split('\n');
-                var text2 = input2.value.split('\n');
+    function compareTexts() {
+        var text1 = input1.value.split('\n');
+        var text2 = input2.value.split('\n');
 
-                var diff = dmp.diff_main(text1.join('\n'), text2.join('\n'));
-                dmp.diff_cleanupSemantic(diff);
+        var diff = dmp.diff_main(text1.join('\n'), text2.join('\n'));
+        dmp.diff_cleanupSemantic(diff);
 
-                var html = [];
-                var lineNum = 1;
-                var insertCount = 0;
-                var deleteCount = 0;
-                for (var x = 0; x < diff.length; x++) {
-                    var op = diff[x][0];    // Operation (insert, delete, equal)
-                    var data = diff[x][1];  // Text of change.
-                    var text = data.split('\n');
-                    for (var y = 0; y < text.length; y++) {
-                        if (text[y].length > 0) {
-                            switch (op) {
-                                case DIFF_INSERT:
-                                    html.push('<p class="insert"><span class="line-number">+' + (lineNum + insertCount) + '</span>' + text[y] + '</p>');
-                                    insertCount++;
-                                    break;
-                                case DIFF_DELETE:
-                                    html.push('<p class="delete"><span class="line-number">-' + (lineNum + deleteCount) + '</span>' + text[y] + '</p>');
-                                    deleteCount++;
-                                    break;
-                                case DIFF_EQUAL:
-                                    html.push('<p><span class="line-number">' + lineNum + '</span>' + text[y] + '</p>');
-                                    lineNum++;
-                                    break;
-                            }
-                        }
+        var html = [];
+        var lineNum = 1;
+        var insertCount = 0;
+        var deleteCount = 0;
+        for (var x = 0; x < diff.length; x++) {
+            var op = diff[x][0];    // Operation (insert, delete, equal)
+            var data = diff[x][1];  // Text of change.
+            var text = data.split('\n');
+            for (var y = 0; y < text.length; y++) {
+                if (text[y].length > 0) {
+                    // Replace < and > with their HTML entities
+                    var safeText = text[y].replace(/</g, "<").replace(/>/g, ">");
+                    switch (op) {
+                        case DIFF_INSERT:
+                            html.push('<p class="insert"><span class="line-number">+' + (lineNum + insertCount) + '</span>' + safeText + '</p>');
+                            insertCount++;
+                            break;
+                        case DIFF_DELETE:
+                            html.push('<p class="delete"><span class="line-number">-' + (lineNum + deleteCount) + '</span>' + safeText + '</p>');
+                            deleteCount++;
+                            break;
+                        case DIFF_EQUAL:
+                            html.push('<p><span class="line-number">' + lineNum + '</span>' + safeText + '</p>');
+                            lineNum++;
+                            break;
                     }
                 }
-
-                document.getElementById('output2').innerHTML = html.join('');
-                document.getElementById('count1').innerText = '字数: ' + input1.value.length;
-                document.getElementById('count2').innerText = '字数: ' + input2.value.length;
-                var similarity = dmp.diff_levenshtein(diff) / Math.max(input1.value.length, input2.value.length);
-                document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
             }
-
-            input1.addEventListener('input', compareTexts);
-            input2.addEventListener('input', compareTexts);
-
-            // 初始化显示字数和相似度为0
-            document.getElementById('count1').innerText = '字数: 0';
-            document.getElementById('count2').innerText = '字数: 0';
-            document.getElementById('similarity').innerText = '相似度: 0.00%';
         }
+
+        document.getElementById('output2').innerHTML = html.join('');
+        document.getElementById('count1').innerText = '字数: ' + input1.value.length;
+        document.getElementById('count2').innerText = '字数: ' + input2.value.length;
+        var similarity = dmp.diff_levenshtein(diff) / Math.max(input1.value.length, input2.value.length);
+        document.getElementById('similarity').innerText = '相似度: ' + ((1 - similarity) * 100).toFixed(2) + '%';
+    }
+
+    input1.addEventListener('input', compareTexts);
+    input2.addEventListener('input', compareTexts);
+
+    // 初始化显示字数和相似度为0
+    document.getElementById('count1').innerText = '字数: 0';
+    document.getElementById('count2').innerText = '字数: 0';
+    document.getElementById('similarity').innerText = '相似度: 0.00%';
+}
     </script>
     <h1 class="title">文本比对工具</h1>
     <div class="container">
